@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        img {
+            display: block;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="images/loading.gif" data-src="images/1.jpg">
+    <img src="images/loading.gif" data-src="images/2.jpg">
+    <img src="images/loading.gif" data-src="images/3.jpg">
+    <img src="images/loading.gif" data-src="images/4.jpg">
+    <img src="images/loading.gif" data-src="images/5.jpg">
+    <img src="images/loading.gif" data-src="images/6.jpg">
+    <img src="images/loading.gif" data-src="images/7.jpg">
+    <img src="images/loading.gif" data-src="images/8.jpg">
+    <img src="images/loading.gif" data-src="images/9.jpg">
+    <img src="images/loading.gif" data-src="images/10.jpg">
+    <img src="images/loading.gif" data-src="images/11.jpg">
+    <img src="images/loading.gif" data-src="images/12.jpg">
+    <img src="images/loading.gif" data-src="images/13.jpg">
+    <img src="images/loading.gif" data-src="images/14.jpg">
+    <img src="images/loading.gif" data-src="images/15.jpg">
+    <img src="images/loading.gif" data-src="images/16.jpg">
+    <img src="images/loading.gif" data-src="images/17.jpg">
+    <img src="images/loading.gif" data-src="images/18.jpg">
+    <img src="images/loading.gif" data-src="images/19.jpg">
+    <img src="images/loading.gif" data-src="images/20.jpg">
+    <img src="images/loading.gif" data-src="images/21.jpg">
+    <script>
+        //优化版本
+        //加上节流throttle和防抖debounce
+        //节流是延时执行期间不响应，防抖是如果延时期间又触发，则清空计时又重新计时
+        function throttle(fn, delay, atleast) {
+            let timeout = null,
+                startTime = new Date();
+            return function () {
+                let curTime = new Date();
+                clearTimeout(timeout);
+                if (curTime - startTime >= atleast) {
+                    fn();
+                    startTime = curTime;
+                }else{
+                    timeout = setTimeout(fn, delay);
+                }
+            }
+
+        }
+        function lazyload() {
+            let images = document.getElementsByTagName('img'),
+                len = images.length,
+                n = 0;
+            return function () {
+                let insight = window.innerHeight + document.documentElement.scrollTop;
+                for (let i = n; i < len; i++) {
+                    if (images[i].offsetTop < insight && images[i].getAttribute('src') == 'images/loading.gif') {
+                        let source = images[i].getAttribute('data-src');
+                        images[i].setAttribute('src', source);
+                    }
+                }
+            }
+        }
+        let loadImages = lazyload();
+        loadImages();
+        window.addEventListener('scroll', throttle(loadImages, 500, 1000), false);
+    </script>
+</body>
+
+</html>

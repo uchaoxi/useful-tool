@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        img {
+            display: block;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="images/loading.gif" data-src="images/1.jpg">
+    <img src="images/loading.gif" data-src="images/2.jpg">
+    <img src="images/loading.gif" data-src="images/3.jpg">
+    <img src="images/loading.gif" data-src="images/4.jpg">
+    <img src="images/loading.gif" data-src="images/5.jpg">
+    <img src="images/loading.gif" data-src="images/6.jpg">
+    <img src="images/loading.gif" data-src="images/7.jpg">
+    <img src="images/loading.gif" data-src="images/8.jpg">
+    <img src="images/loading.gif" data-src="images/9.jpg">
+    <img src="images/loading.gif" data-src="images/10.jpg">
+    <img src="images/loading.gif" data-src="images/11.jpg">
+    <img src="images/loading.gif" data-src="images/12.jpg">
+    <img src="images/loading.gif" data-src="images/13.jpg">
+    <img src="images/loading.gif" data-src="images/14.jpg">
+    <img src="images/loading.gif" data-src="images/15.jpg">
+    <img src="images/loading.gif" data-src="images/16.jpg">
+    <img src="images/loading.gif" data-src="images/17.jpg">
+    <img src="images/loading.gif" data-src="images/18.jpg">
+    <img src="images/loading.gif" data-src="images/19.jpg">
+    <img src="images/loading.gif" data-src="images/20.jpg">
+    <img src="images/loading.gif" data-src="images/21.jpg">
+    <script>
+        //beta版本，很多多余操作，包括每次触发oncroll事件都从头判断images，没有对onsroll的频繁触发做处理
+        let lazyLoad = function () {
+            const imgDoms = document.getElementsByTagName('img');
+            const imgs = [...imgDoms];
+            loadImages(imgs);
+            document.onscroll = function () {
+                console.log('scroll')
+                loadImages(imgs);
+            }
+        }
+       
+        function loadImages(imgs) {
+            let height = document.documentElement.scrollTop + window.innerHeight;
+            imgs.forEach(function (ele) {
+                if (ele.offsetTop < height&&ele.getAttribute('src')=='images/loading.gif') {
+                    let source = ele.getAttribute('data-src')
+                    ele.setAttribute('src', source);
+                }
+            })
+        }
+        lazyLoad();
+    </script>
+</body>
+
+</html>
