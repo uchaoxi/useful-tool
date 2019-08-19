@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WEB WORKER TEST</title>
+</head>
+<body>
+  <input type="number" placeholder="number A" id="inputA">
+  <input type="number" placeholder="number B" id="inputB">
+  <button id="btnAdd">Add A & B</button>
+  <div id="result"></div>
+  <script>
+    const btnAdd = document.getElementById('btnAdd');
+    const DivResult = document.getElementById('result');
+    const inputA = document.getElementById('inputA');
+    const inputB = document.getElementById('inputB');
+    btnAdd.addEventListener('click',() => {  
+      let numA = inputA.value;
+      console.log(typeof numA)
+      let numB = inputB.value;
+      let worker = new Worker('worker.js',{ name: 'addWorker' });
+      let obj = { method: 'add', params: [numA, numB] };
+      worker.postMessage('hh', obj);
+      worker.addEventListener('message',(e) => {
+        console.log(e.data)
+      })
+      console.log(obj)
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .container {
+      width: 270px;
+      height: 270px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-areas: "header header sidebar"
+        "main  . sidebar"
+        "main footer footer";
+    }
+
+    .die1 {
+      background-color: brown;
+      grid-area: header;
+    }
+
+    .die2 {
+      background-color: olive;
+      grid-area: sidebar;
+    }
+
+    .die3 {
+      background-color: forestgreen;
+      grid-area: main
+    }
+
+    .die4 {
+      background-color:rebeccapurple;
+      grid-area: footer
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="die1"></div>
+    <div class="die2"></div>
+    <div class="die3"></div>
+    <div class="die4"></div>
+  </div>
+</body>
+
+</html>
