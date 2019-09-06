@@ -33,5 +33,5 @@ Function.prototype.mybind = function (context, args) {
   context[selfFunc] = this
   return context[selfFunc]
 }
-let result = Math.max.myapply(null, 3)
-console.log(result)
+let result = Math.max.mybind(null, 3)
+console.log(result(null, 3 , 5))
